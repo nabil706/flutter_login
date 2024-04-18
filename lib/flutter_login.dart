@@ -179,7 +179,7 @@ class __HeaderState extends State<_Header> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _titleHeight = getEstimatedTitleHeight()-5;
+    _titleHeight = getEstimatedTitleHeight();
   }
 
   @override
@@ -187,7 +187,7 @@ class __HeaderState extends State<_Header> {
     super.didUpdateWidget(oldWidget);
 
     if (widget.title != oldWidget.title) {
-      _titleHeight = getEstimatedTitleHeight()-5;
+      _titleHeight = getEstimatedTitleHeight();
     }
   }
 
@@ -258,7 +258,7 @@ class __HeaderState extends State<_Header> {
               controller: widget.titleController,
               offset: .5,
               fadeDirection: FadeDirection.topToBottom,
-              child: title,
+              child: SingleChildScrollView(scrollDirection: Axis.vertical,child: title),
             ),
           ],
         ),
