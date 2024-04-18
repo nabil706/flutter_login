@@ -179,7 +179,7 @@ class __HeaderState extends State<_Header> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _titleHeight = getEstimatedTitleHeight();
+    _titleHeight = getEstimatedTitleHeight()-5;
   }
 
   @override
@@ -187,7 +187,7 @@ class __HeaderState extends State<_Header> {
     super.didUpdateWidget(oldWidget);
 
     if (widget.title != oldWidget.title) {
-      _titleHeight = getEstimatedTitleHeight();
+      _titleHeight = getEstimatedTitleHeight()-5;
     }
   }
 
