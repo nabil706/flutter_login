@@ -11,7 +11,7 @@ import 'package:flutter_login/src/models/login_user_type.dart';
 import 'package:flutter_login/src/models/term_of_service.dart';
 import 'package:flutter_login/src/models/user_form_field.dart';
 import 'package:provider/provider.dart';
-import 'package:sign_in_button/sign_in_button.dart';
+import 'package:sign_in_labelLarge/sign_in_labelLarge.dart';
 
 import 'src/color_helper.dart';
 import 'src/constants.dart';
@@ -34,25 +34,25 @@ export 'src/providers/login_messages.dart';
 export 'src/providers/login_theme.dart';
 export 'src/models/term_of_service.dart';
 export 'src/providers/auth.dart';
-export 'package:sign_in_button/src/button_list.dart';
+export 'package:sign_in_labelLarge/src/labelLarge_list.dart';
 
 class LoginProvider {
-  /// Used for custom sign-in buttons.
+  /// Used for custom sign-in labelLarges.
   ///
-  /// NOTE: Both [button] and [icon] can be added to [LoginProvider],
-  /// but [button] will take preference over [icon]
-  final Buttons? button;
+  /// NOTE: Both [labelLarge] and [icon] can be added to [LoginProvider],
+  /// but [labelLarge] will take preference over [icon]
+  final labelLarges? labelLarge;
 
-  /// The icon shown on the provider button
+  /// The icon shown on the provider labelLarge
   ///
-  /// NOTE: Both [button] and [icon] can be added to [LoginProvider],
-  /// but [button] will take preference over [icon]
+  /// NOTE: Both [labelLarge] and [icon] can be added to [LoginProvider],
+  /// but [labelLarge] will take preference over [icon]
   final IconData? icon;
 
   /// The label shown under the provider
   final String label;
 
-  /// A Function called when the provider button is pressed.
+  /// A Function called when the provider labelLarge is pressed.
   /// It must return null on success, or a `String` describing the error on failure.
   final ProviderAuthCallback callback;
 
@@ -64,19 +64,19 @@ class LoginProvider {
   /// If not given the default behaviour is not to show the signup card.
   final ProviderNeedsSignUpCallback? providerNeedsSignUpCallback;
 
-  /// Enable or disable the animation of the button.
+  /// Enable or disable the animation of the labelLarge.
   ///
   /// Default: true
   final bool animated;
 
   const LoginProvider(
-      {this.button,
+      {this.labelLarge,
       this.icon,
       required this.callback,
       this.label = '',
       this.providerNeedsSignUpCallback,
       this.animated = true})
-      : assert(button != null || icon != null);
+      : assert(labelLarge != null || icon != null);
 }
 
 class _AnimationTimeDilationDropdown extends StatelessWidget {
@@ -161,7 +161,7 @@ class __HeaderState extends State<_Header> {
     final renderParagraph = RenderParagraph(
       TextSpan(
         text: widget.title,
-        style: theme.textTheme.headline3!.copyWith(
+        style: theme.textTheme.displaySmall!.copyWith(
           fontSize: widget.loginTheme.beforeHeroFontSize,
         ),
       ),
@@ -227,14 +227,14 @@ class __HeaderState extends State<_Header> {
         tag: widget.titleTag,
         largeFontSize: widget.loginTheme.beforeHeroFontSize,
         smallFontSize: widget.loginTheme.afterHeroFontSize,
-        style: theme.textTheme.headline3,
+        style: theme.textTheme.displaySmall,
         viewState: ViewState.enlarged,
       );
     } else if (!DartHelper.isNullOrEmpty(widget.title)) {
       title = Text(
         widget.title!,
         key: kTitleKey,
-        style: theme.textTheme.headline3,
+        style: theme.textTheme.displaySmall,
       );
     } else {
       title = null;
@@ -285,9 +285,9 @@ class FlutterLogin extends StatefulWidget {
       this.logoTag,
       this.userType = LoginUserType.email,
       this.titleTag,
-      this.showDebugButtons = false,
+      this.showDebuglabelLarges = false,
       this.loginProviders = const <LoginProvider>[],
-      this.hideForgotPasswordButton = false,
+      this.hideForgotPasswordlabelLarge = false,
       this.loginAfterSignUp = true,
       this.footer,
       this.hideProvidersTitle = false,
@@ -307,12 +307,12 @@ class FlutterLogin extends StatefulWidget {
         logo = logo is String ? AssetImage(logo) : logo,
         super(key: key);
 
-  /// Called when the user hit the submit button when in sign up mode
+  /// Called when the user hit the submit labelLarge when in sign up mode
   ///
   /// Can be null to disable signup.
   final SignupCallback? onSignup;
 
-  /// Called when the user hit the submit button when in login mode
+  /// Called when the user hit the submit labelLarge when in login mode
   final LoginCallback onLogin;
 
   /// [LoginUserType] can be email, name or phone, by default is email. It will change how
@@ -320,11 +320,11 @@ class FlutterLogin extends StatefulWidget {
   final LoginUserType userType;
 
   /// list of LoginProvider each have an icon and a callback that will be Called when
-  /// the user hit the provider icon button
+  /// the user hit the provider icon labelLarge
   /// if not specified nothing will be shown
   final List<LoginProvider> loginProviders;
 
-  /// Called when the user hit the submit button when in recover password mode
+  /// Called when the user hit the submit labelLarge when in recover password mode
   final RecoverCallback onRecoverPassword;
 
   /// The large text above the login [Card], usually the app or company name
@@ -333,7 +333,7 @@ class FlutterLogin extends StatefulWidget {
   /// The image provider for the logo image to be displayed
   final ImageProvider? logo;
 
-  /// Describes all of the labels, text hints, button texts and other auth
+  /// Describes all of the labels, text hints, labelLarge texts and other auth
   /// descriptions
   final LoginMessages? messages;
 
@@ -362,17 +362,17 @@ class FlutterLogin extends StatefulWidget {
   /// and after hero animation
   final String? titleTag;
 
-  /// Display the debug buttons to quickly forward/reverse login animations. In
+  /// Display the debug labelLarges to quickly forward/reverse login animations. In
   /// release mode, this will be overrided to false regardless of the value
   /// passed in
-  final bool showDebugButtons;
+  final bool showDebuglabelLarges;
 
   /// This List contains the additional signup fields.
   /// By setting this, after signup another card with a form for additional user data is shown
   final List<UserFormField>? additionalSignupFields;
 
-  /// Set to true to hide the Forgot Password button
-  final bool hideForgotPasswordButton;
+  /// Set to true to hide the Forgot Password labelLarge
+  final bool hideForgotPasswordlabelLarge;
 
   /// Set to false to return back to sign in page after successful sign up
   final bool loginAfterSignUp;
@@ -394,11 +394,11 @@ class FlutterLogin extends StatefulWidget {
   /// Optional
   final ConfirmRecoverCallback? onConfirmRecover;
 
-  /// Called when the user hits the submit button when in confirm signup mode
+  /// Called when the user hits the submit labelLarge when in confirm signup mode
   /// Optional
   final ConfirmSignupCallback? onConfirmSignup;
 
-  /// Called when the user hits the resend code button in confirm signup mode
+  /// Called when the user hits the resend code labelLarge in confirm signup mode
   /// Only when onConfirmSignup is set
   final SignupCallback? onResendCode;
 
@@ -518,7 +518,7 @@ class _FlutterLoginState extends State<FlutterLogin>
     );
   }
 
-  Widget _buildDebugAnimationButtons() {
+  Widget _buildDebugAnimationlabelLarges() {
     const textStyle = TextStyle(fontSize: 12, color: Colors.white);
 
     return Positioned(
@@ -527,7 +527,7 @@ class _FlutterLoginState extends State<FlutterLogin>
       child: Row(
         key: kDebugToolbarKey,
         children: <Widget>[
-          MaterialButton(
+          MateriallabelLarge(
             color: Colors.green,
             onPressed: () {
               timeDilation = 1.0;
@@ -555,19 +555,19 @@ class _FlutterLoginState extends State<FlutterLogin>
             },
             child: const Text('OPTIONS', style: textStyle),
           ),
-          MaterialButton(
+          MateriallabelLarge(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             color: Colors.blue,
             onPressed: () => authCardKey.currentState!.runLoadingAnimation(),
             child: const Text('LOADING', style: textStyle),
           ),
-          MaterialButton(
+          MateriallabelLarge(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             color: Colors.orange,
             onPressed: () => authCardKey.currentState!.runChangePageAnimation(),
             child: const Text('PAGE', style: textStyle),
           ),
-          MaterialButton(
+          MateriallabelLarge(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             color: Colors.red,
             onPressed: () =>
@@ -597,38 +597,38 @@ class _FlutterLoginState extends State<FlutterLogin>
     final accentColor = loginTheme.accentColor ?? theme.colorScheme.secondary;
     final errorColor = loginTheme.errorColor ?? theme.errorColor;
     // the background is a dark gradient, force to use white text if detect default black text color
-    final isDefaultBlackText = theme.textTheme.headline3!.color ==
-        Typography.blackMountainView.headline3!.color;
-    final titleStyle = theme.textTheme.headline3!
+    final isDefaultBlackText = theme.textTheme.displaySmall!.color ==
+        Typography.blackMountainView.displaySmall!.color;
+    final titleStyle = theme.textTheme.displaySmall!
         .copyWith(
           color: loginTheme.accentColor ??
               (isDefaultBlackText
                   ? Colors.white
-                  : theme.textTheme.headline3!.color),
+                  : theme.textTheme.displaySmall!.color),
           fontSize: loginTheme.beforeHeroFontSize,
           fontWeight: FontWeight.w300,
         )
         .merge(loginTheme.titleStyle);
-    final footerStyle = theme.textTheme.bodyText1!
+    final footerStyle = theme.textTheme.bodyLarge!
         .copyWith(
           color: loginTheme.accentColor ??
               (isDefaultBlackText
                   ? Colors.white
-                  : theme.textTheme.headline3!.color),
+                  : theme.textTheme.displaySmall!.color),
         )
         .merge(loginTheme.footerTextStyle);
-    final textStyle = theme.textTheme.bodyText2!
+    final textStyle = theme.textTheme.bodyMedium!
         .copyWith(color: blackOrWhite)
         .merge(loginTheme.bodyStyle);
-    final textFieldStyle = theme.textTheme.subtitle1!
+    final textFieldStyle = theme.textTheme.titleMedium!
         .copyWith(color: blackOrWhite, fontSize: 14)
         .merge(loginTheme.textFieldStyle);
-    final buttonStyle = theme.textTheme.button!
+    final labelLargeStyle = theme.textTheme.labelLarge!
         .copyWith(color: Colors.white)
-        .merge(loginTheme.buttonStyle);
+        .merge(loginTheme.labelLargeStyle);
     final cardTheme = loginTheme.cardTheme;
     final inputTheme = loginTheme.inputTheme;
-    final buttonTheme = loginTheme.buttonTheme;
+    final labelLargeTheme = loginTheme.labelLargeTheme;
     final roundBorderRadius = BorderRadius.circular(100);
 
     LoginThemeHelper.loginTextStyle = titleStyle;
@@ -695,22 +695,22 @@ class _FlutterLoginState extends State<FlutterLogin>
               borderRadius: roundBorderRadius,
             ),
       ),
-      floatingActionButtonTheme: theme.floatingActionButtonTheme.copyWith(
-        backgroundColor: buttonTheme.backgroundColor ?? primaryColor,
-        splashColor: buttonTheme.splashColor ?? theme.colorScheme.secondary,
-        elevation: buttonTheme.elevation ?? 4.0,
-        highlightElevation: buttonTheme.highlightElevation ?? 2.0,
-        shape: buttonTheme.shape ?? const StadiumBorder(),
+      floatingActionlabelLargeTheme: theme.floatingActionlabelLargeTheme.copyWith(
+        backgroundColor: labelLargeTheme.backgroundColor ?? primaryColor,
+        splashColor: labelLargeTheme.splashColor ?? theme.colorScheme.secondary,
+        elevation: labelLargeTheme.elevation ?? 4.0,
+        highlightElevation: labelLargeTheme.highlightElevation ?? 2.0,
+        shape: labelLargeTheme.shape ?? const StadiumBorder(),
       ),
-      // put it here because floatingActionButtonTheme doesnt have highlightColor property
+      // put it here because floatingActionlabelLargeTheme doesnt have highlightColor property
       highlightColor:
-          loginTheme.buttonTheme.highlightColor ?? theme.highlightColor,
+          loginTheme.labelLargeTheme.highlightColor ?? theme.highlightColor,
       textTheme: theme.textTheme.copyWith(
-        headline3: titleStyle,
-        bodyText2: textStyle,
-        subtitle1: textFieldStyle,
-        subtitle2: footerStyle,
-        button: buttonStyle,
+        displaySmall: titleStyle,
+        bodyMedium: textStyle,
+        titleMedium: textFieldStyle,
+        titleSmall: footerStyle,
+        labelLarge: labelLargeStyle,
       ),
       colorScheme:
           Theme.of(context).colorScheme.copyWith(secondary: accentColor),
@@ -738,7 +738,7 @@ class _FlutterLoginState extends State<FlutterLogin>
         padding: EdgeInsets.only(bottom: loginTheme.footerBottomPadding),
         child: Text(
           widget.footer!,
-          style: theme.textTheme.subtitle2,
+          style: theme.textTheme.titleSmall,
           textAlign: TextAlign.center,
         ),
       );
@@ -797,9 +797,9 @@ class _FlutterLoginState extends State<FlutterLogin>
                         passwordValidator: passwordValidator,
                         onSubmit: _reverseHeaderAnimation,
                         onSubmitCompleted: widget.onSubmitAnimationCompleted,
-                        hideSignUpButton: widget.onSignup == null,
-                        hideForgotPasswordButton:
-                            widget.hideForgotPasswordButton,
+                        hideSignUplabelLarge: widget.onSignup == null,
+                        hideForgotPasswordlabelLarge:
+                            widget.hideForgotPasswordlabelLarge,
                         loginAfterSignUp: widget.loginAfterSignUp,
                         hideProvidersTitle: widget.hideProvidersTitle,
                         additionalSignUpFields: widget.additionalSignupFields,
@@ -824,8 +824,8 @@ class _FlutterLoginState extends State<FlutterLogin>
                 ),
               ),
             ),
-            if (!kReleaseMode && widget.showDebugButtons)
-              _buildDebugAnimationButtons(),
+            if (!kReleaseMode && widget.showDebuglabelLarges)
+              _buildDebugAnimationlabelLarges(),
           ],
         ),
       ),
